@@ -143,10 +143,8 @@ public class Main extends JFrame
                     }
                 });
             }
-            item.setMnemonic(items[i][1].charAt(0)); // русская буква
-            // установим клавишу быстрого доступа (латинская буква)
-            item.setAccelerator(KeyStroke.getKeyStroke(items[i][2].charAt(0),
-                    KeyEvent.CTRL_MASK));
+            item.setMnemonic(items[i][1].charAt(0));
+
             if (items[i][3].length() > 0)
                 item.setIcon(new ImageIcon(items[i][3]));
             menu.add(item);
@@ -210,37 +208,20 @@ public class Main extends JFrame
         panelRightRightDown.setLayout(boxlayoutRightRightDown);
         getContentPane().setLayout(boxlayoutAll);
 
-        // JButton jButtonNewGraph = new JButton("New_Graph");
-
-
-
         jButtonStepUndo.setEnabled(false);
         jButtonStep.setEnabled(false);
         jButtonAll.setEnabled(false);
 
-
-/*
         JTextArea jTextMatrixSmeshznosti = new JTextArea("Adjacency matrix:");
-        jTextMatrixSmeshznosti.setMaximumSize(new Dimension(130, 20));
-        jFieldTable = new JTextArea();
-        jFieldTable.setMaximumSize(new Dimension(300, 300));
-        JScrollPane jFieldScrollPane = new JScrollPane(jFieldTable);
-        jFieldScrollPane.setMaximumSize(new Dimension(300, 300));
-*/
-
-        JTable jTextMatrixSmeshznosti = new JTable();
         jTextMatrixSmeshznosti.setMaximumSize(new Dimension(130, 20));
         jFieldTable = new JTable();
         jFieldTable.setMaximumSize(new Dimension(300, 300));
         JScrollPane jFieldScrollPane = new JScrollPane(jFieldTable,  ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jFieldScrollPane.setMaximumSize(new Dimension(300, 300));
+        jFieldScrollPane.setMaximumSize(new Dimension(500, 500));
         jFieldTable.setTableHeader(null);
         jFieldTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-       // JTable mainTable = new JTable();
-
-
-       // jFieldTable.setEditable(false);
+        jTextMatrixSmeshznosti.setEditable(false);
 
         panelRightRight.add(jButtonAddVertex);
         panelRightRight.add(jButtonAddEdge);
@@ -390,7 +371,6 @@ public class Main extends JFrame
         Dimension dimension = toolkit.getScreenSize();
         frame.setBounds(dimension.width / 2 - 375, dimension.height / 2 - 250, 750, 500);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //frame.setUndecorated(true);
         frame.setVisible(true);
         return frame;
     }

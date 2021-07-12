@@ -41,7 +41,6 @@ public class FileOpening {
                 incorrect = true;
             }
         }
-
         catch(IOException ex){
             System.out.println(ex.getMessage());
         }

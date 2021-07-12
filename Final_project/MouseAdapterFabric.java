@@ -5,7 +5,6 @@ import com.mxgraph.model.mxGeometry;
 import com.mxgraph.model.mxICell;
 import com.mxgraph.swing.mxGraphOutline;
 import com.mxgraph.view.mxGraph;
-import javafx.scene.control.Tab;
 
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
@@ -48,11 +47,6 @@ public class MouseAdapterFabric {
                     firstCell.setStyle("defaultStyle;");
                     indexEdge++;
                     MatrixAdapterFabric.addEdgeMatrix(adj, firstCellId, secondCellId, weight);
-                  //  TableAdapterFabric.addTableUpdate(adj,Main.jFieldTable, graph);
-
-
-                   // MatrixAdapterFabric.addVertexMatrix(adj);
-                    //MatrixAdapterFabric.addVertexMatrixSlashText(adjSlashText);
                     TableAdapterFabric.genNewTable(adj, adjSlashText, graph, Main.jFieldTable);
 
                     graph.insertEdge(graph.getDefaultParent(), indexEdge.toString()+"e", textWeight.getText(), firstCell, secondCell);
@@ -75,7 +69,6 @@ public class MouseAdapterFabric {
                         StringBuilder time_string = new StringBuilder( firstCell.getId());
                         time_string.deleteCharAt(time_string.length()-1);
                         firstCellId = Integer.parseInt(time_string.toString());
-                        //System.out.println(firstCellId + ": 1 vert");
                         graph.getModel().beginUpdate(); // начали обновлять
                         try
                         {
@@ -84,7 +77,7 @@ public class MouseAdapterFabric {
                         }
                         finally
                         {
-                            graph.getModel().endUpdate(); // закончили
+                            graph.getModel().endUpdate();
                         }
                     } else {
                         firstCell = null;
@@ -101,7 +94,6 @@ public class MouseAdapterFabric {
                         StringBuilder time_string = new StringBuilder( secondCell.getId());
                         time_string.deleteCharAt(time_string.length()-1);
                         secondCellId = Integer.parseInt(time_string.toString());
-                        //System.out.println(secondCellId + ": 2 vert");
                         if (connectionVertex(firstCell, secondCell)){
                             resetSelection();
                             JOptionPane.showMessageDialog(null,  "These vertices are already connected!", "Invalid selection of vertices", JOptionPane.ERROR_MESSAGE);
@@ -113,7 +105,7 @@ public class MouseAdapterFabric {
                 }
             }
             private void resetSelection(){
-                graph.getModel().beginUpdate(); // начали обновлять
+                graph.getModel().beginUpdate();
                 try
                 {
                     firstCell.setStyle("defaultStyle;");
@@ -122,7 +114,7 @@ public class MouseAdapterFabric {
                 }
                 finally
                 {
-                    graph.getModel().endUpdate(); // закончили
+                    graph.getModel().endUpdate();
                 }
             }
 
@@ -167,8 +159,6 @@ public class MouseAdapterFabric {
     }
 
     public void getAddEdgeMouseAdapterFromFile(Vector<Vector<Integer>> my_vec){
-        // System.out.println(my_vec);
-        //  System.out.println(adj);
         MatrixAdapterFabric.changeMatrix(adj, my_vec);
         mxCell timeCell1, timeCell2;
         for(int i = 0; i < adj.size(); i++) {
@@ -177,7 +167,6 @@ public class MouseAdapterFabric {
                     timeCell1 = (mxCell) c;
                     for (Object e : graph.getChildVertices(graph.getDefaultParent())) {
                         timeCell2 = (mxCell) e;
-                        /*Вытягиваем ID вершин*/
 
                         StringBuilder time_string1 = new StringBuilder(timeCell1.getId());
                         time_string1.deleteCharAt(time_string1.length() - 1);
@@ -191,7 +180,6 @@ public class MouseAdapterFabric {
 
 
                             TableAdapterFabric.genNewTable(adj, adjSlashText, graph, Main.jFieldTable);
-                            //TableAdapterFabric.addTableUpdate(adj, Main.jFieldTable, graph);
                             graph.insertEdge(graph.getDefaultParent(), indexEdge.toString()+"e", adj.get(i).get(j).toString(), timeCell1, timeCell2);
                             new mxParallelEdgeLayout(graph).execute(graph.getDefaultParent());
                         }
@@ -206,19 +194,16 @@ public class MouseAdapterFabric {
         MouseAdapter addVertexMouseAdapter = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                graph.getModel().beginUpdate(); // начали обновлять
+                graph.getModel().beginUpdate();
                 try
                 {
                     indexVertex++;
-                    // System.out.println((indexVertex-1)+ " + 1 = " + indexVertex + "; " + indexVertex + " + v =" + indexVertex + "v");
                     Object v2 = graph.insertVertex(graph.getDefaultParent(), null, vertexEnumerator.getNextValue(), e.getX() - widthVertex / 2, e.getY() - heightVertex / 2, widthVertex, heightVertex);
                     mxCell test = (mxCell) v2;
                     test.setId(indexVertex.toString()+"v");
-                    // System.out.println(test.getId()+ " create vert");
                     MatrixAdapterFabric.addVertexMatrix(adj);
                     MatrixAdapterFabric.addVertexMatrixSlashText(adjSlashText);
                     TableAdapterFabric.genNewTable(adj, adjSlashText, graph, Main.jFieldTable);
-                    //TableAdapterFabric.addTableUpdate(adj,Main.jFieldTable, graph);
                 }
                 finally
                 {
@@ -233,12 +218,10 @@ public class MouseAdapterFabric {
         graph.getModel().beginUpdate(); // начали обновлять
         try {
             indexVertex++;
-            // System.out.println((indexVertex-1)+ " + 1 = " + indexVertex + "; " + indexVertex + " + v =" + indexVertex + "v");
             Object v2 = graph.insertVertex(graph.getDefaultParent(), null, vertexEnumerator.getNextValue(), 0, 0, widthVertex, heightVertex);
             new mxCircleLayout(graph).execute(graph.getDefaultParent());
             mxCell test = (mxCell) v2;
             test.setId(indexVertex.toString() + "v");
-            //System.out.println(test.getId()+ " create vert");
             MatrixAdapterFabric.addVertexMatrix(adj);
             MatrixAdapterFabric.addVertexMatrixSlashText(adjSlashText);
             TableAdapterFabric.genNewTable(adj, adjSlashText, graph, Main.jFieldTable);
@@ -261,7 +244,7 @@ public class MouseAdapterFabric {
                         };
                         int result = JOptionPane.showConfirmDialog(null, inputs, "Change name", JOptionPane.PLAIN_MESSAGE);
                         if (result == JOptionPane.OK_OPTION) {
-                            graph.getModel().beginUpdate(); // начали обновлять
+                            graph.getModel().beginUpdate();
                             try
                             {
                                 graph.getModel().setValue(cell, changeName.getText());
@@ -270,7 +253,7 @@ public class MouseAdapterFabric {
                             }
                             finally
                             {
-                                graph.getModel().endUpdate(); // закончили
+                                graph.getModel().endUpdate();
                             }
                         }
                     }
@@ -292,7 +275,7 @@ public class MouseAdapterFabric {
                         StringBuilder time_string = new StringBuilder( cell.getId());
                         time_string.deleteCharAt(time_string.length()-1);
                         cellId = Integer.parseInt(time_string.toString());
-                        graph.getModel().beginUpdate(); // начали обновлять
+                        graph.getModel().beginUpdate();
                         try
                         {
                             MatrixAdapterFabric.deleteVertexMatrix(adj,cellId);
@@ -302,7 +285,6 @@ public class MouseAdapterFabric {
                             cell.removeFromTerminal(true);
                             TableAdapterFabric.genNewTable(adj, adjSlashText, graph, Main.jFieldTable);
                             mxCell timeCell;
-                            //System.out.println(cellId + "::contr");
                             for (Object c : graph.getChildVertices(graph.getDefaultParent())){
                                 timeCell = (mxCell) c;
                                 int timeCellId = 1;
@@ -310,23 +292,20 @@ public class MouseAdapterFabric {
                                 time_stringTimeCellId.deleteCharAt(time_stringTimeCellId.length()-1);
                                 timeCellId = Integer.parseInt(time_stringTimeCellId.toString());
                                 if(timeCellId>cellId) {
-                                    //System.out.println(timeCellId + ">" + cellId);
                                     Integer renameCellId = timeCellId - 1;
                                     timeCell.setId(renameCellId.toString() + "v");
                                 }
-                                //System.out.println(timeCell.getId());
                             }
                             indexVertex--;
-                            //System.out.println("delete vert: " + cell.getId() +" indexVertex stal: " + indexVertex);
                             graph.refresh();
                         }
                         finally
                         {
-                            graph.getModel().endUpdate(); // закончили
+                            graph.getModel().endUpdate();
                         }
                     }
                     else {
-                        graph.getModel().beginUpdate(); // начали обновлять
+                        graph.getModel().beginUpdate();
                         try
                         {
                             mxCell timeFirstCell = (mxCell) cell.getSource();
@@ -348,7 +327,7 @@ public class MouseAdapterFabric {
                         }
                         finally
                         {
-                            graph.getModel().endUpdate(); // закончили
+                            graph.getModel().endUpdate();
                         }
                     }
 
@@ -428,12 +407,9 @@ public class MouseAdapterFabric {
     }
 
     public static boolean getRunUndo() {
-        /*----------------------------------------------------*/
-        //пофиксить выход за границу
         Vector<Vector<Integer>> tmp = ReleaseFloyd.getState();
         if(tmp != null){
             adj = tmp;
-            //System.out.println(ReleaseFloyd.getState());
             MatrixAdapterFabric.cleanVertexMatrixSlashText(adjSlashText);
             ReleaseFloyd.recolorUndo(graph);
             TableAdapterFabric.genNewTable(adj, adjSlashText, graph, Main.jFieldTable);
@@ -441,7 +417,6 @@ public class MouseAdapterFabric {
         } else{
             return false;
         }
-        /*-------------------------------------------------------*/
     }
 
     public static void getRunAll() {
